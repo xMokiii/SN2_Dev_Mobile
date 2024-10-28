@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { ScrollView, Text, StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from 'expo-router';
-import { useCallback } from 'react';
 import { Button } from 'react-native-paper';
 import DreamForm from './DreamForm';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -47,8 +46,8 @@ export default function DreamList() {
 
     const handleDeleteAllDreams = async () => {
         try {
-            await AsyncStorage.removeItem('dreamFormDataArray'); // Supprime toutes les données dans AsyncStorage
-            setDreams([]); // Vide la liste des rêves
+            await AsyncStorage.removeItem('dreamFormDataArray');
+            setDreams([]);
         } catch (error) {
             console.error('Erreur lors de la suppression de tous les rêves:', error);
         }
@@ -62,6 +61,7 @@ export default function DreamList() {
         setSelectedDream(null);
         fetchData();
     };
+    
 
     return (
         <ScrollView>
@@ -74,26 +74,24 @@ export default function DreamList() {
                     <View key={index} style={styles.dreamContainer}>
                         <Text style={styles.dreamText}>
                             <MaterialIcons name="bedtime" size={18} color="#6A5ACD" /> Rêve : {dream.dreamText} {'\n'}
+                            <MaterialIcons name="emoji-emotions" size={18} color="#6A5ACD" /> Etat émotionnel : {dream.dreamText2} {'\n'}
                             <MaterialIcons name="category" size={18} color="#6A5ACD" /> Type : {dream.dreamType} {'\n'}
                             <MaterialIcons name="mood" size={18} color="#6A5ACD" /> Tonalité : {dream.tonaliteType} {'\n'}
-                            <MaterialIcons name="event" size={18} color="#6A5ACD" /> Date : {new Date(dream.todayDate).toLocaleString('fr-FR', { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric', 
-                                hour: '2-digit', 
-                                minute: '2-digit' 
-                            })}
+                            <MaterialIcons name="filter" size={18} color="#6A5ACD" /> Intensité : {dream.intensite_emotion} {'\n'}
+                            <MaterialIcons name="bed" size={18} color="#6A5ACD" /> Qualité sommeil : {dream.qualite_sommeil} {'\n'}
+                            <MaterialIcons name="announcement" size={18} color="#6A5ACD" /> Clarté : {dream.clarte} {'\n'}
+                            <MaterialIcons name="event" size={18} color="#6A5ACD" /> Date : {new Date(dream.todayDate).toLocaleString('fr-FR')}
                         </Text>
                         {dream.hashtags && dream.hashtags.length > 0 && (
                             <Text style={styles.hashtagsText}>
-                                Hashtags : {dream.hashtags.join(', ')}
+                                <MaterialIcons name="label" size={18} color="#6A5ACD" /> Hashtags : {dream.hashtags.join(', ')}
                             </Text>
                         )}
                         <Button onPress={() => handleEditDream(dream, index)} mode="outlined" style={styles.editButton}>
                             <MaterialIcons name="edit" size={16} /> Modifier
                         </Button>
                         <Button onPress={() => handleDeleteDream(index)} mode="contained" color="red" style={styles.deleteButton}>
-                        <MaterialIcons name="delete" size={16} /> Supprimer
+                            <MaterialIcons name="delete" size={16} /> Supprimer
                         </Button>
                     </View>
                 ))
