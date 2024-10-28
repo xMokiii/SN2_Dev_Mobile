@@ -36,8 +36,8 @@ Cloner le repository
 $ git clone (lien du projet)
 
 Dans le dossier du projet, ouvrir un terminal Bash et installer les dépendances :
-$ npm install
-npx expo install react-native-paper -- --save
+- npm install
+- npx expo install react-native-paper -- --save
 
 Dépendances à installer si problème de compatibilité SDK:
 - npm install --save @expo/config@8.1.1
