@@ -72,7 +72,7 @@ export default function DreamList() {
                 dreams.map((dream, index) => (
                     <View key={index} style={styles.dreamContainer}>
                         <Text style={styles.dreamText}>
-                            {dream.dreamText} - {dream.isLucidDream ? 'Lucide' : 'Non Lucide'} - 
+                            {dream.dreamText} - {dream.dreamType} - {dream.tonaliteType} - {}
                             {new Date(dream.todayDate).toLocaleString('fr-FR', { 
                                 year: 'numeric', 
                                 month: 'long', 
@@ -118,22 +118,20 @@ const styles = StyleSheet.create({
     },
     dreamText: {
         fontSize: 16,
-        marginBottom: 10,
     },
     hashtagsText: {
         fontSize: 14,
         color: 'gray',
-        marginBottom: 10,
-    },
-    editButton: {
-        marginBottom: 5,
     },
     deleteButton: {
-        marginBottom: 5,
+        marginTop: 10,
+    },
+    editButton: {
+        marginTop: 10,
     },
     deleteAllButton: {
-        marginBottom: 20,
-        alignSelf: 'center',
+        marginVertical: 10,
+        marginHorizontal: 'auto',
     },
     noDreamsText: {
         fontSize: 16,
