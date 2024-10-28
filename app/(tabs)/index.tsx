@@ -6,7 +6,9 @@ import DreamForm from '@/components/DreamForm'
 export default function TabOneScreen() {
   return (
   <View style={styles.container}>
-  <Text style={styles.title}>Enregistrer un nouveau rêve</Text>
+    <Text style={styles.title}>{"\n"}</Text>
+    <Text style={styles.title}>Nouveau rêve ! 💭</Text>
+    <Text style={styles.title}>{"\n"}</Text>
   <DreamForm/>
   </View>
   );
@@ -18,9 +20,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: 'bold',
-  },
+    textAlign: 'center',
+    color: '#6A5ACD',
+},
   separator: {
     marginVertical: 30,
     height: 1,

@@ -5,6 +5,7 @@ import { useFocusEffect } from 'expo-router';
 import { useCallback } from 'react';
 import { Button } from 'react-native-paper';
 import DreamForm from './DreamForm';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function DreamList() {
     const [dreams, setDreams] = useState([]);
@@ -64,7 +65,7 @@ export default function DreamList() {
 
     return (
         <ScrollView>
-            <Text style={styles.title}>Liste des Rêves :</Text>
+            <Text style={styles.title}>Liste des Rêves🌙</Text>
             <Button onPress={handleDeleteAllDreams} mode="contained" color="red" style={styles.deleteAllButton}>
                 Supprimer tous les rêves
             </Button>
@@ -72,8 +73,10 @@ export default function DreamList() {
                 dreams.map((dream, index) => (
                     <View key={index} style={styles.dreamContainer}>
                         <Text style={styles.dreamText}>
-                            {dream.dreamText} - {dream.dreamType} - {dream.tonaliteType} - {}
-                            {new Date(dream.todayDate).toLocaleString('fr-FR', { 
+                            <MaterialIcons name="bedtime" size={18} color="#6A5ACD" /> Rêve : {dream.dreamText} {'\n'}
+                            <MaterialIcons name="category" size={18} color="#6A5ACD" /> Type : {dream.dreamType} {'\n'}
+                            <MaterialIcons name="mood" size={18} color="#6A5ACD" /> Tonalité : {dream.tonaliteType} {'\n'}
+                            <MaterialIcons name="event" size={18} color="#6A5ACD" /> Date : {new Date(dream.todayDate).toLocaleString('fr-FR', { 
                                 year: 'numeric', 
                                 month: 'long', 
                                 day: 'numeric', 
@@ -87,10 +90,10 @@ export default function DreamList() {
                             </Text>
                         )}
                         <Button onPress={() => handleEditDream(dream, index)} mode="outlined" style={styles.editButton}>
-                            Modifier
+                            <MaterialIcons name="edit" size={16} /> Modifier
                         </Button>
                         <Button onPress={() => handleDeleteDream(index)} mode="contained" color="red" style={styles.deleteButton}>
-                            Supprimer
+                        <MaterialIcons name="delete" size={16} /> Supprimer
                         </Button>
                     </View>
                 ))
@@ -104,38 +107,54 @@ export default function DreamList() {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
+        color: '#6A5ACD',
     },
     dreamContainer: {
         marginBottom: 20,
-        padding: 10,
+        padding: 15,
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
+        borderColor: '#D1C4E9',
+        borderRadius: 10,
+        backgroundColor: '#FCFCFC',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
     },
     dreamText: {
         fontSize: 16,
+        color: '#4A4A4A',
+        lineHeight: 24,
     },
     hashtagsText: {
         fontSize: 14,
-        color: 'gray',
+        color: '#FCFCFC',
+        fontStyle: 'italic',
+        marginTop: 5,
     },
     deleteButton: {
         marginTop: 10,
+        borderRadius: 8,
     },
     editButton: {
         marginTop: 10,
+        borderRadius: 8,
+        borderColor: '#6A5ACD',
     },
     deleteAllButton: {
-        marginVertical: 10,
-        marginHorizontal: 'auto',
+        marginVertical: 15,
+        alignSelf: 'center',
+        borderRadius: 8,
     },
     noDreamsText: {
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
-        color: 'gray',
+        color: '#FCFCFC',
+        marginTop: 20,
     },
 });

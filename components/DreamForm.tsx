@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { TextInput, Button, Chip, Menu } from 'react-native-paper';
+import { TextInput, Button, Chip, Menu, Text } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -74,6 +75,7 @@ export default function DreamForm({ selectedDream, onFormSubmit }) {
     return (
         <ScrollView>
             <View style={styles.container}>
+                <Text style={styles.title}>Mon rêve du jour :</Text>
                 <TextInput
                     label="Rêve"
                     value={dreamText}
@@ -87,7 +89,7 @@ export default function DreamForm({ selectedDream, onFormSubmit }) {
                     visible={showDropDown}
                     onDismiss={() => setShowDropDown(false)}
                     anchor={
-                        <Button onPress={() => setShowDropDown(true)}>
+                        <Button icon="menu-down" onPress={() => setShowDropDown(true)} style={styles.menuButton} >
                             {dreamType}
                         </Button>
                     }
@@ -102,7 +104,7 @@ export default function DreamForm({ selectedDream, onFormSubmit }) {
                     visible={showDropDown2}
                     onDismiss={() => setShowDropDown2(false)}
                     anchor={
-                        <Button onPress={() => setShowDropDown2(true)}>
+                        <Button icon="menu-down" onPress={() => setShowDropDown2(true)} style={styles.menuButton}>
                             {tonaliteType}
                         </Button>
                     }
@@ -143,20 +145,52 @@ const styles = StyleSheet.create({
         padding: 20,
         width: width - 40,
         alignSelf: 'center',
+        backgroundColor: '#FCFCFC',
+        borderWidth: 1,
+        borderColor: '#D1C4E9',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
+        marginBottom: 20,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center',
+        color: '#6A5ACD',
     },
     input: {
         marginBottom: 20,
+        backgroundColor: '#FFF',
+        borderColor: '#a984ff',
+        borderRadius: 8,
+    },
+    menuButton: {
+        marginBottom: 10,
+        color: '#FFFFF' ,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#a984ff',
+
     },
     hashtagsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         marginBottom: 20,
+        borderColor: '#D1C4E9',
     },
     hashtagChip: {
+        backgroundColor: '#D1C4E9',
         marginRight: 5,
         marginBottom: 5,
+        borderRadius: 16,
     },
     submitButton: {
         marginTop: 20,
+        borderRadius: 8,
     },
 });
