@@ -5,6 +5,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { PaperProvider } from 'react-native-paper';
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -20,6 +22,13 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+// Wrapper to dismiss the keyboard when the user taps outside
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <View style={{ flex: 1 }}>{children}</View>
+  </TouchableWithoutFeedback>
+);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -49,11 +58,16 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <PaperProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        {/* Wrap the navigation stack in DismissKeyboard to dismiss the keyboard when tapping outside */}
+        <DismissKeyboard>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          </Stack>
+        </DismissKeyboard>
+      </ThemeProvider>
+    </PaperProvider>
   );
 }
